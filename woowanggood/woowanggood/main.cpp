@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,28 +20,37 @@ int main() {
 	element* data = NULL;
 	Stack s;
 	initStack(&s);
-	do { 
-		printf("=========================================================================\n\n\n\n");
-		printf("�˻� : 1, �˻���� ���� : 2, ���� : 0 || ������ �۾��� �����ϼ��� : ");
+	printf("┌───────────────┐\n"
+		"│   WOOWANGOOD  │ \n"
+		"└───────────────┘\n");
+	do {
+		printf("=========================================================================\n");
+		printf(" 검색 : 1 \n 검색기록 삭제 : 2 \n 검색기록 조회 : 3 \n 종료 : 0 \n\n 수행할 작업을 선택하세요 : ");
 		scanf("%d", &menu);
 		switch (menu) {
 		case 1:
-			printf("�˻��� �Է� : ");
+			printf(" 검색어 입력 : ");
 			push(&s);
 			printf("\n\n\n");
 			break;
 		case 2:
 			data = pop(&s);
-				printf("������ �˻��� : ");
-				for (int i = 0; i < strlen(data); i++) {
-					printf("%c", data[i]);
-				}
-				printf("\n\n\n\n");
+			printf(" 삭제된 검색어 : ");
+			for (int i = 0; i < strlen(data); i++) {
+				printf("%c", data[i]);
+			}
+			printf("\n\n\n\n");
 			break;
+		case 3:
+			printf("\n ──── 최근 검색 내역 ──── \n");
+			for (int i = 0; i<strlen(s.data[i]); i++) {
+				printf("ㄴ %s \n", s.data[i]);
+			}
+			
 		case 0:
 			break;
 		default:
-			printf("�߸��� �Է� �Դϴ�. \n");
+			printf(" 잘못된 입력 입니다. \n");
 			break;
 		}
 	} while (menu);
@@ -58,7 +67,7 @@ int isEmpty(Stack* s) {
 }
 void push(Stack* s) {
 	if (isFull(s)) {
-		printf("Stack if Full\n");
+		printf("── FULL ──\n");
 		return;
 	}
 	char data[20];
@@ -71,8 +80,9 @@ void push(Stack* s) {
 }
 element* pop(Stack* s) {
 	if (isEmpty(s)) {
-		printf("Stack is Empty\n");
+		printf("── EMPTY ──\n");
 		return 0;
 	}
+	s->data[s->top][s->top] = NULL;
 	return s->data[s->top--];
 }
