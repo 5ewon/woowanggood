@@ -16,6 +16,8 @@ int isEmpty(Stack* s);
 void push(Stack* s);
 element* pop(Stack* s);
 void initStack(Stack* s);
+int partition(element list[][20], int left, int right);
+void quicksort(element list[][20], int left, int right);
 
 int main() {
 	int menu;
@@ -27,7 +29,7 @@ int main() {
 		   "└───────────────┘\n");
 	do {
 		printf("=========================================================================\n");
-		printf(" 검색 : 1 \n 검색기록 삭제 : 2 \n 검색기록 조회 : 3 \n 종료 : 0 \n\n 수행할 작업을 선택하세요 : ");
+		printf(" 검색 : 1 \n 검색기록 삭제 : 2 \n 검색기록 조회 : 3 \n 검색기록 정렬 : 4 \n 종료 : 0 \n\n 수행할 작업을 선택하세요 : ");
 		scanf("%d", &menu);
 		switch (menu) {
 		case 1:
@@ -46,7 +48,14 @@ int main() {
 			for (int i = 0; i<= s.top; i++) {
 				printf("ㄴ %s \n", s.data[i]);
 			}
-			
+			break;
+		case 4:
+			printf("\n ──── 최근 검색 기록 정렬 ──── \n");
+			quicksort(s.data, 0, s.top);
+			for (int i = 0; i <= s.top; i++) {
+				printf("ㄴ %s \n", s.data[i]);
+			}
+			break;
 		case 0:
 			break;
 		default:
@@ -82,4 +91,44 @@ element* pop(Stack* s) {
 	}
 	s->data[s->top][0] = NULL;
 	return s->data[s->top--];
+}
+void swap(element x[], element y[], element t[]) {
+	strcpy(t, x);
+	strcpy(x, y);
+	strcpy(y, t);
+}
+
+int partition(element list[][20], int left, int right)
+{
+	int low, high;
+	element pivot;
+	element temp[20];
+	low = left;
+	high = right + 1;
+	pivot = list[left][0];
+	do {
+		do {
+			low++;
+		} while (list[low][0] < pivot && low <= right);
+		do {
+			high--;
+		} while (list[high][0] > pivot);
+
+		if (low < high) {
+			swap(list[low], list[high], temp);
+		}
+	} while (low < high);
+
+	swap(list[left], list[high], temp);
+	return high;
+}
+
+void quicksort(element list[][20], int left, int right)
+{
+	if (left < right)
+	{
+		int q = partition(list, left, right);
+		quicksort(list, left, q - 1);
+		quicksort(list, q + 1, right);
+	}
 }
