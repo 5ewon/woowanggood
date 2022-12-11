@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
+
 #define STACK_SIZE 10
 typedef char element;
 typedef struct {
@@ -21,8 +23,8 @@ int main() {
 	Stack s;
 	initStack(&s);
 	printf("┌───────────────┐\n"
-		"│   WOOWANGOOD  │ \n"
-		"└───────────────┘\n");
+		   "│   WOOWANGOOD  │ \n"
+		   "└───────────────┘\n");
 	do {
 		printf("=========================================================================\n");
 		printf(" 검색 : 1 \n 검색기록 삭제 : 2 \n 검색기록 조회 : 3 \n 종료 : 0 \n\n 수행할 작업을 선택하세요 : ");
@@ -36,14 +38,12 @@ int main() {
 		case 2:
 			data = pop(&s);
 			printf(" 삭제된 검색어 : ");
-			for (int i = 0; i < strlen(data); i++) {
-				printf("%c", data[i]);
-			}
+			printf("%s", data);
 			printf("\n\n\n\n");
 			break;
 		case 3:
 			printf("\n ──── 최근 검색 내역 ──── \n");
-			for (int i = 0; i<strlen(s.data[i]); i++) {
+			for (int i = 0; i<= s.top; i++) {
 				printf("ㄴ %s \n", s.data[i]);
 			}
 			
@@ -55,9 +55,10 @@ int main() {
 		}
 	} while (menu);
 }
-
+	
 void initStack(Stack* s) {
 	s->top = -1;
+	int i = 0;
 }
 int isFull(Stack* s) {
 	return s->top == STACK_SIZE - 1;
@@ -70,19 +71,15 @@ void push(Stack* s) {
 		printf("── FULL ──\n");
 		return;
 	}
-	char data[20];
 	s->top++;
-	scanf("%s", data);
-	for (int i = 0; i < strlen(data); i++) {
-		s->data[s->top][i] = data[i];
-	}
-	s->data[s->top][strlen(data) + 1] = '\0';
+	scanf("%s", s->data[s->top]);
+
 }
 element* pop(Stack* s) {
 	if (isEmpty(s)) {
 		printf("── EMPTY ──\n");
 		return 0;
 	}
-	s->data[s->top][s->top] = NULL;
+	s->data[s->top][0] = NULL;
 	return s->data[s->top--];
 }

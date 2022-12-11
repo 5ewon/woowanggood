@@ -1,2 +1,3 @@
 ﻿  main.cpp
+C:\Users\gwons\OneDrive\바탕 화면\c-project\woowanggood\woowanggood\main.cpp(82,7): warning C4101: 'data' :참조되지 않은 지역 변수입니다.
   woowanggood.vcxproj -> C:\Users\gwons\OneDrive\바탕 화면\c-project\woowanggood\x64\Debug\woowanggood.exe
